@@ -19,8 +19,8 @@ def step_rk4(y, t, h, f):
 	return y + h * (k1 + 2 * k2 + 2 * k3 + k4) / 6
 
 def meth_n_step(y0, t0, N, h, f, meth):
-	res = np.full(N, y0)
+	res = np.zeros((N, len(y0)))
+	res[0] = y0.copy()
 	for i in range(1, N):
-		print(res[i - 1])
 		res[i] = meth(res[i - 1], t0 + i * h, h, f)
 	return res
