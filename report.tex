@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[]{hyperref}
+\usepackage{graphicx, float}
+\usepackage{subfig}
+\usepackage{amssymb, amsmath, amsthm, stmaryrd}
+
+%%%%%%%%%%%%%%%% Lengths %%%%%%%%%%%%%%%%
+\setlength{\textwidth}{15.5cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\oddsidemargin}{0.5cm}
+
+%%%%%%%%%%%%%%%% Variables %%%%%%%%%%%%%%%%
+\def\projet{6}
+\def\titre{Résolution approchée d'équations différentielles ordinaires}
+\def\groupe{4}
+\def\equipe{4}
+\def\responsible{}
+\def\secretary{}
+\def\others{}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%% Header %%%%%%%%%%%%%%%%
+\noindent\begin{minipage}{0.98\textwidth}
+	\vskip 0mm
+	\noindent
+	{ \begin{tabular}{p{7.5cm}}
+		{\bfseries \sffamily
+			Projet \projet} \\ 
+		{\itshape \titre}
+		\end{tabular}}
+	\hfill 
+	\fbox{\begin{tabular}{l}
+		{~\hfill \bfseries \sffamily Group \groupe\ - Team \equipe
+			\hfill~} \\[2mm] 
+		Manager : \responsible \\
+		Secretary : \secretary \\
+		Programmer : \others
+		\end{tabular}}
+	\vskip 4mm ~
+
+	~~~\parbox{0.95\textwidth}{\small \textit{Summary~:} \sffamily
+		Résumé à faire ici.
+	}
+	\vskip 1mm ~
+\end{minipage}
+
+%%%%%%%%%%%%%%%% Main part %%%%%%%%%%%%%%%%
+
+\input{sections/section-1}\label{sec1}
+
+\input{sections/section-2}\label{sec2}
+
+\input{sections/section-3}\label{sec3}
+
+\end{document}
