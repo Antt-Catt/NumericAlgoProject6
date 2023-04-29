@@ -1,6 +1,7 @@
 from part1 import meth_n_step, step_rk4
 
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import numpy as np
 
 
@@ -80,6 +81,7 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
 	
 	res = meth_n_step(y0, t0, N, h, derivative, step_rk4)
+	plt.subplot(1, 2, 1)
 	plt.title("Modèle de Lotka-Volterra")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
@@ -87,6 +89,16 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	plt.plot(y, res[:, 1], marker='x', label='Proies')
 	plt.grid()
 	plt.legend()
+
+	plt.subplot(1, 2, 2)
+	plt.title("Modèle de Lotka-Volterra")
+	plt.xlabel("Proies")
+	plt.ylabel("Prédateurs")
+	plt.scatter(res[:, 0], res[:, 1], c=y, marker='x', cmap="jet")
+	plt.grid()
+	plt.axis("equal")
+	plt.colorbar(label="Temps")
+
 	plt.tight_layout()
 	plt.show()
 
@@ -98,11 +110,11 @@ if __name__ == '__main__':
 	N = 40
 	t0, tf = 0, 8
 
-	first_models(y0, t0, tf, N, gamma, k)
+	#first_models(y0, t0, tf, N, gamma, k)
 
 	param = [1.5, 1, 1, 0.5]
 	y0 = np.array([1.5, 1])
-	N = 1000
-	t0, tf = 0, 100
+	N = 100
+	t0, tf = 0, 8.2
 
 	second_model(y0, t0, tf, N, *param)
