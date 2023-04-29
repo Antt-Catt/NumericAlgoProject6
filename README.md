@@ -2,11 +2,11 @@
 
 ## Groupe 4 - Equipe 4
 
-**Manager :**
+**Manager :** Antton CATTARIN
 
-**Secretary :**
+**Secretary :** Mathieu MOREL
 
-**Programmers :**
+**Programmers :** Arthur LE FLOCH, Manoa BEAUVAIS
 
 ## Repository Organization
 
