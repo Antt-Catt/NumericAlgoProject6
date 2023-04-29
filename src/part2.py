@@ -91,7 +91,7 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	plt.legend()
 
 	plt.subplot(1, 2, 2)
-	plt.title("Modèle de Lotka-Volterra")
+	plt.title("Tracé de (N(t), P(t))")
 	plt.xlabel("Proies")
 	plt.ylabel("Prédateurs")
 	plt.scatter(res[:, 0], res[:, 1], c=y, marker='x', cmap="jet")
@@ -101,7 +101,6 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 
 	plt.tight_layout()
 	plt.show()
-
 
 if __name__ == '__main__':
 	gamma, k = 0.7, 6000
