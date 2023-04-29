@@ -102,7 +102,6 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 
 	plt.tight_layout()
 	plt.show()
-	print("DONE")
 
 
 def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
@@ -143,6 +142,7 @@ def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
 	for i in range(1, N):
 		if abs(x[0] - x[i]) < eps and abs(y[0] - y[i]) < eps:
 			return h * i
+
 
 if __name__ == '__main__':
 	gamma, k = 0.7, 6000
