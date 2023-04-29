@@ -1,4 +1,4 @@
-from part1 import meth_n_step, step_rk4
+from part1 import meth_n_step, step_rk4, meth_epsilon
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -73,13 +73,15 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	d : float
 		Death rate of the prey.
 	"""
-	h = (tf - t0) / N
-	t = [t0 + h * i for i in range(N)]
 
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
 	
-	res = meth_n_step(y0, t0, N, h, derivative, step_rk4)
+	res = meth_epsilon(y0, t0, tf, 1e-7, derivative, step_rk4)
+	N = len(res)
+	h = (tf - t0) / N
+	t = [t0 + h * i for i in range(N)]
+
 	plt.subplot(1, 2, 1)
 	plt.title("Modèle de Lotka-Volterra")
 	plt.xlabel("Temps")
@@ -100,9 +102,10 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 
 	plt.tight_layout()
 	plt.show()
+	print("DONE")
 
 
-def find_period(y0, t0, tf, N, a, b, c, d, eps=1e-2):
+def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
 	"""
 	Function to find the period of the Lotka-Volterra model.
 
@@ -127,12 +130,13 @@ def find_period(y0, t0, tf, N, a, b, c, d, eps=1e-2):
 	eps : float (optional)
 		Precision of the period.
 	"""
-	h = (tf - t0) / N
-
+	
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
 	
-	res = meth_n_step(y0, t0, N, h, derivative, step_rk4)
+	res = meth_epsilon(y0, t0, tf, 1e-7, derivative, step_rk4)
+	N = len(res)
+	h = (tf - t0) / N
 	x = res[:, 0]
 	y = res[:, 1]
 
@@ -150,10 +154,10 @@ if __name__ == '__main__':
 	first_models(y0, t0, tf, N, gamma, k)
 
 	param = [1.5, 1, 1, 0.5]
-	y0 = np.array([1.5, 1])
-	N = 100
+	y0 = np.array([1.5, 1.])
+	N = 10
 	t0, tf = 0, 8.2
 
 	second_model(y0, t0, tf, N, *param)
-	period = find_period(y0, t0, tf * 2, N * 10, *param)
+	period = find_period(y0, t0, tf * 2, *param)
 	print(f"La période est de {period:.2f} unités de temps.")

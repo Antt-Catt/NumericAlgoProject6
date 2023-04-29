@@ -33,7 +33,6 @@ def meth_epsilon(y0, t0, tf, eps, f, meth):
 	while True:
 		h /= 2
 		N *= 2
-		print(N)
 		y2 = meth_n_step(y0, t0, N, h, f, meth)
 		y_tmp = y2[::2]
 		if np.all(abs(y1 - y_tmp) < eps):
