@@ -1,7 +1,6 @@
 from part1 import meth_n_step, step_rk4
 
 import matplotlib.pyplot as plt
-import matplotlib.cm as cm
 import numpy as np
 
 
@@ -129,7 +128,6 @@ def find_period(y0, t0, tf, N, a, b, c, d, eps=1e-2):
 		Precision of the period.
 	"""
 	h = (tf - t0) / N
-	t = [t0 + h * i for i in range(N)]
 
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
