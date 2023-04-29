@@ -26,7 +26,7 @@ def first_models(y0, t0, tf, N, gamma, k):
 		Carrying capacity.
 	"""
 	h = (tf - t0) / N
-	y = [t0 + h * i for i in range(N)]
+	t = [t0 + h * i for i in range(N)]
 
 	# First differential equation
 	derivN1 = lambda x, t : gamma * x
@@ -35,7 +35,7 @@ def first_models(y0, t0, tf, N, gamma, k):
 	plt.title("Premier modèle de population")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
-	plt.plot(y, res1, marker='x')
+	plt.plot(t, res1, marker='x')
 	plt.grid()
 
 	# Second differential equation
@@ -45,7 +45,7 @@ def first_models(y0, t0, tf, N, gamma, k):
 	plt.title("Modèle de population de Verhulst")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
-	plt.plot(y, res2, marker='x')
+	plt.plot(t, res2, marker='x')
 	plt.grid()
 	plt.tight_layout()
 	plt.show()
@@ -75,7 +75,7 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 		Death rate of the prey.
 	"""
 	h = (tf - t0) / N
-	y = [t0 + h * i for i in range(N)]
+	t = [t0 + h * i for i in range(N)]
 
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
@@ -85,8 +85,8 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	plt.title("Modèle de Lotka-Volterra")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
-	plt.plot(y, res[:, 0], marker='x', label='Prédateurs')
-	plt.plot(y, res[:, 1], marker='x', label='Proies')
+	plt.plot(t, res[:, 0], marker='x', label='Prédateurs')
+	plt.plot(t, res[:, 1], marker='x', label='Proies')
 	plt.grid()
 	plt.legend()
 
@@ -94,13 +94,53 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	plt.title("Tracé de (N(t), P(t))")
 	plt.xlabel("Proies")
 	plt.ylabel("Prédateurs")
-	plt.scatter(res[:, 0], res[:, 1], c=y, marker='x', cmap="jet")
+	plt.scatter(res[:, 0], res[:, 1], c=t, marker='x', cmap="jet")
 	plt.grid()
 	plt.axis("equal")
 	plt.colorbar(label="Temps")
 
 	plt.tight_layout()
 	plt.show()
+
+
+def find_period(y0, t0, tf, N, a, b, c, d, eps=1e-2):
+	"""
+	Function to find the period of the Lotka-Volterra model.
+
+	Parameters
+	----------
+	y0 : float
+		Initial value of the population.
+	t0 : float
+		Initial time.
+	tf : float
+		Final time.
+	N : int
+		Number of steps.
+	a : float
+		Growth rate of the predators.
+	b : float
+		Death rate of the predators.
+	c : float
+		Growth rate of the prey.
+	d : float
+		Death rate of the prey.
+	eps : float (optional)
+		Precision of the period.
+	"""
+	h = (tf - t0) / N
+	t = [t0 + h * i for i in range(N)]
+
+	def derivative(Y, t):
+		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
+	
+	res = meth_n_step(y0, t0, N, h, derivative, step_rk4)
+	x = res[:, 0]
+	y = res[:, 1]
+
+	for i in range(1, N):
+		if abs(x[0] - x[i]) < eps and abs(y[0] - y[i]) < eps:
+			return h * i
 
 if __name__ == '__main__':
 	gamma, k = 0.7, 6000
@@ -109,7 +149,7 @@ if __name__ == '__main__':
 	N = 40
 	t0, tf = 0, 8
 
-	#first_models(y0, t0, tf, N, gamma, k)
+	first_models(y0, t0, tf, N, gamma, k)
 
 	param = [1.5, 1, 1, 0.5]
 	y0 = np.array([1.5, 1])
@@ -117,3 +157,5 @@ if __name__ == '__main__':
 	t0, tf = 0, 8.2
 
 	second_model(y0, t0, tf, N, *param)
+	period = find_period(y0, t0, tf * 2, N * 10, *param)
+	print(f"La période est de {period:.2f} unités de temps.")
