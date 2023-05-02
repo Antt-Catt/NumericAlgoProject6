@@ -39,3 +39,36 @@ def meth_epsilon(y0, t0, tf, eps, f, meth):
 			break
 		y1 = y2
 	return y2
+
+
+
+def tangent_1D(f, ti, tf, yi, yf, step):
+    t = np.arange(ti, tf, step)
+    y = np.arange(yi, yf, step)
+    T, Y = np.meshgrid(t, y)
+    U=np.full(T.shape,1)
+    V = f(T, Y)
+    plt.quiver(T, Y, U, V)
+    plt.xlabel('t')
+    plt.ylabel('y')
+    plt.show()
+
+
+def f(t,y):
+    return y / (1+t**2)
+
+tangent_1D(f,-2,2,-2,2, 0.2)
+
+def tangent_2D(f, ti, tf, yi, yf, step):
+    t = np.arange(ti, tf, step)
+    y1 = np.arange(yi, yf, step)
+    y2 = np.arange(yi, yf, step)
+    Y1, Y2 = np.meshgrid(y1, y2)
+    U = -Y2
+    V = Y1
+    plt.quiver(Y1, Y2, U, V)
+    plt.xlabel('y1')
+    plt.ylabel('y2')
+    plt.show()
+
+tangent_2D(lambda t, y: (-y[1], y[0]),0,10,-2,2.5, 0.2)
