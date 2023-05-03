@@ -27,7 +27,7 @@ def meth_n_step(y0, t0, N, h, f, meth):
 	return res
 
 def meth_epsilon(y0, t0, tf, eps, f, meth):
-	N = 2
+	N = 32
 	h = (tf - t0) / N
 	y1 = meth_n_step(y0, t0, N, h, f, meth)
 	while True:
