@@ -93,8 +93,8 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 
 	plt.subplot(1, 2, 2)
 	plt.title("Tracé de (N(t), P(t))")
-	plt.xlabel("Proies")
-	plt.ylabel("Prédateurs")
+	plt.xlabel("Prédateurs")
+	plt.ylabel("Proies")
 	plt.scatter(res[:, 0], res[:, 1], c=t, marker='x', cmap="jet")
 	plt.grid()
 	plt.axis("equal")
@@ -176,8 +176,8 @@ if __name__ == '__main__':
 
 	# first_models(y0, t0, tf, N, gamma, k)
 
-	param = [1.2, 1, 0.8, 1]
-	y0 = np.array([0.7, 0.3])
+	param = [1, 0.5, 1, 1] # a, b, c, d
+	y0 = np.array([2, 2])
 	N = 10
 	t0, tf = 0, 8.2
 
