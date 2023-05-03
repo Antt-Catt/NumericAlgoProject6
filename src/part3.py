@@ -1,12 +1,46 @@
-from part1 import step_rk4, meth_epsilon
+from part1 import step_euler, step_rk4, meth_epsilon, meth_n_step
 from math import *
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 import numpy as np
+import math
 
-g, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1
+g, l, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1, 1
 
 total_length = l1 + l2
+
+
+# 1.
+def is_max(res, i):
+    if (res[i - 1][0] < res[i][0] and res[i + 1][0] < res[i][0]):
+        return True
+    return False
+
+def frequencies(theta_0, meth):
+    y0 = np.array([theta_0, 0])
+    t0 = 0
+    N = 10000
+    h = 10/N
+    f = lambda x, t: np.array([x[1], -(g/l)*np.sin(x[0])])
+    res = meth_n_step(y0, t0, N, h, f, meth)
+    i_1 = 1
+    while (not(is_max(res, i_1))):
+        i_1 += 1
+    i_2 = i_1 + 1
+    while (not(is_max(res, i_2))):
+        i_2 += 1
+    T = (i_2 - i_1)*h
+    return 1/T
+
+def frequencies_theta_variable_graph(n):
+    x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
+    x = np.delete(x, np.where(x == 0))
+    y = np.array([frequencies(x[i], step_euler) for i in range(n - 1)])
+    y_const = np.array([1/((2*np.pi)*math.sqrt(l/g)) for _ in range(n - 1)])
+    plt.plot(x, y)
+    plt.plot(x, y_const)
+    plt.show()
+
 
 def w(Y, t):
 	theta1, dtheta1, theta2, dtheta2 = Y
