@@ -143,6 +143,29 @@ def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
 		if abs(x[0] - x[i]) < eps and abs(y[0] - y[i]) < eps:
 			return h * i
 
+def plot_solutions(y0, t0, tf, a, b, c, d):
+
+	def derivative(Y, t):
+		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
+	
+	delta = 0.2
+	num = 5
+	i = 0
+	initial_values = np.zeros((num * num, 2))
+	for x in np.linspace(y0[0] - delta, y0[0] + delta, num):
+		for y in np.linspace(y0[1] - delta, y0[1] + delta, num):
+			initial_values[i] = np.array([x, y])
+			i += 1
+	for yi in initial_values:
+		res = meth_epsilon(yi, t0, tf, 1e-7, derivative, step_rk4)
+		plt.plot(res[:, 0], res[:, 1], color="black")
+	plt.xlim(y0[0] - delta, y0[0] + delta)
+	plt.ylim(y0[1] - delta, y0[1] + delta)
+	plt.grid()
+	plt.xlabel("Proies")
+	plt.ylabel("Prédateurs")
+	plt.show()
+
 
 if __name__ == '__main__':
 	gamma, k = 0.7, 6000
@@ -151,13 +174,15 @@ if __name__ == '__main__':
 	N = 40
 	t0, tf = 0, 8
 
-	first_models(y0, t0, tf, N, gamma, k)
+	# first_models(y0, t0, tf, N, gamma, k)
 
-	param = [1.5, 1, 1, 0.5]
-	y0 = np.array([1.5, 1.])
+	param = [1.2, 1, 0.8, 1]
+	y0 = np.array([0.7, 0.3])
 	N = 10
 	t0, tf = 0, 8.2
 
 	second_model(y0, t0, tf, N, *param)
 	period = find_period(y0, t0, tf * 2, *param)
 	print(f"La période est de {period:.2f} unités de temps.")
+
+	plot_solutions(y0, t0, tf, *param)
