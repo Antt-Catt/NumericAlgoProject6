@@ -15,21 +15,22 @@ def w(Y, t):
 	N2 = 2 * sin(theta1 - theta2) * (dtheta1 * dtheta1 * l1 * (m1 + m2) + g * (m1 + m2) * cos(theta1) + dtheta2 * dtheta2 * l2 * m2 * cos(theta1 - theta2))
 	return np.array([dtheta1, N1 / (D * l1), dtheta2, N2 / (D * l2)])
 
-def double_pendulum(y, t0, tf):
+def double_pendulum(y, vy, t0, tf):
 	theta1, theta2 = y
-	y0 = np.array([theta1, 0, theta2, 0])
+	dtheta1, dtheta2 = vy
+	y0 = np.array([theta1, dtheta1, theta2, dtheta2])
 	res = meth_epsilon(y0, t0, tf, 1e-2, w, step_rk4)
 
 	theta1 = res[:, 0]
 	theta2 = res[:, 2]
+
+	t = np.linspace(t0, tf, len(theta1))
 
 	X1 = l1 * np.sin(theta1)
 	X2 = X1 + l2 * np.sin(theta2)
 
 	Y1 = -l1 * np.cos(theta1)
 	Y2 = Y1 - l2 * np.cos(theta2)
-
-	t = np.linspace(t0, tf, len(theta1))
 
 	plt.title("Problème du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
@@ -43,9 +44,15 @@ def double_pendulum(y, t0, tf):
 	plt.ylabel("Y")
 	plt.show()
 
-	return X1, Y1, X2, Y2, t
+	return theta1, theta2, t
 
-def animate_double_pendulum(X1, Y1, X2, Y2, t):
+def animate_double_pendulum(theta1, theta2, t):
+	X1 = l1 * np.sin(theta1)
+	X2 = X1 + l2 * np.sin(theta2)
+
+	Y1 = -l1 * np.cos(theta1)
+	Y2 = Y1 - l2 * np.cos(theta2)
+
 	fig, ax = plt.subplots()
 	ax.set_xlim(-(total_length), (total_length))
 	ax.set_ylim(-(total_length), (total_length))
@@ -66,13 +73,26 @@ def animate_double_pendulum(X1, Y1, X2, Y2, t):
 		line2.set_data([X1[i], X2[i]], [Y1[i], Y2[i]])
 		return line1, line2, m1, m2
 
-	anim = FuncAnimation(fig, animate, frames=len(t), interval=20, blit=True)
+	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
 	plt.title("Animation du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
 	plt.legend()
 	plt.show()
 
+def find_first_loop(theta1, theta2, t):
+	for i, ti in enumerate(t):
+		if abs(theta2[i]) > pi:
+			return ti
+
 if __name__ == '__main__':
-	X1, Y1, X2, Y2, t = double_pendulum(np.array([pi/2, 0]), 0, 10)
-	animate_double_pendulum(X1, Y1, X2, Y2, t)
+	angles = np.array([pi/2, 0])
+	angular_speed = np.array([4, 0])
+	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
+	animate_double_pendulum(theta1, theta2, t)
+
+	first_loop_time = find_first_loop(theta1, theta2, t)
+	if first_loop_time is None:
+		print("Pas de boucle")
+	else:
+		print("Temps pour le premier tour de la masse 2 : ", first_loop_time)
