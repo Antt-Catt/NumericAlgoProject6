@@ -10,7 +10,6 @@ g, l, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1, 1
 total_length = l1 + l2
 
 
-# 1.
 def is_max(res, i):
 	if (res[i - 1][0] < res[i][0] and res[i + 1][0] < res[i][0]):
 		return True
