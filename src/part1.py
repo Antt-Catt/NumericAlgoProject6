@@ -52,7 +52,7 @@ def tangent_1D(f, ti, tf, yi, yf, step):
 	y = np.arange(yi, yf, step)
 	T, Y = np.meshgrid(t, y)
 	U = np.full(T.shape, 1)
-	V = f(T, Y)
+	V = f(Y, T)
 	plt.quiver(T, Y, U, V)
 	plt.xlabel('t')
 	plt.ylabel('y')
@@ -73,8 +73,8 @@ def tangent_2D(f, ti, tf, yi, yf, step):
 
 
 if __name__ == '__main__':
-	f = lambda t, y: y / (1 + t * t)
+	f = lambda y, t: y / (1 + t * t)
 	tangent_1D(f, -2, 2, -2, 2, 0.2)
 
-	f = lambda t, y: (-y[1] * y[1], y[0])
+	f = lambda y, t: (-y[1] * y[1], y[0])
 	tangent_2D(f, 0, 10, -2, 2.5, 0.2)
