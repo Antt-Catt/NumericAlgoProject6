@@ -27,21 +27,23 @@ def first_models(y0, t0, tf, N, gamma, k):
 	h = (tf - t0) / N
 	t = [t0 + h * i for i in range(N)]
 
+	plt.figure(figsize=(10, 5))
+
 	# First differential equation
-	derivN1 = lambda x, t : gamma * x
+	derivN1 = lambda x, t: gamma * x
 	res1 = meth_n_step(y0, t0, N, h, derivN1, step_rk4)
 	plt.subplot(1, 2, 1)
-	plt.title("Premier modèle de population")
+	plt.title(f"Modèle de Malthus\n$\gamma$ = {gamma}")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
 	plt.plot(t, res1, marker='x')
 	plt.grid()
 
 	# Second differential equation
-	derivN2 = lambda x, t : gamma * x * (1 - x / k)
+	derivN2 = lambda x, t: gamma * x * (1 - x / k)
 	res2 = meth_n_step(y0, t0, N, h, derivN2, step_rk4)
 	plt.subplot(1, 2, 2)
-	plt.title("Modèle de population de Verhulst")
+	plt.title(f"Modèle de Verhulst\n$\kappa$ = {k}, $\gamma$ = {gamma}")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
 	plt.plot(t, res2, marker='x')
@@ -76,14 +78,16 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
-	
+
 	res = meth_epsilon(y0, t0, tf, 1e-7, derivative, step_rk4)
 	N = len(res)
 	h = (tf - t0) / N
 	t = [t0 + h * i for i in range(N)]
 
+	plt.figure(figsize=(10, 5))
+
 	plt.subplot(1, 2, 1)
-	plt.title("Modèle de Lotka-Volterra")
+	plt.title(f"Modèle de Lotka-Volterra\n(a, b, c, d) = ({a}, {b}, {c}, {d})")
 	plt.xlabel("Temps")
 	plt.ylabel("Nombre d'individus")
 	plt.plot(t, res[:, 0], marker='x', label='Prédateurs')
@@ -92,9 +96,9 @@ def second_model(y0, t0, tf, N, a, b, c, d):
 	plt.legend()
 
 	plt.subplot(1, 2, 2)
-	plt.title("Tracé de (N(t), P(t))")
-	plt.xlabel("Proies")
-	plt.ylabel("Prédateurs")
+	plt.title(f"Tracé de (N(t), P(t))\n(a, b, c, d) = ({a}, {b}, {c}, {d})")
+	plt.xlabel("Prédateurs")
+	plt.ylabel("Proies")
 	plt.scatter(res[:, 0], res[:, 1], c=t, marker='x', cmap="jet")
 	plt.grid()
 	plt.axis("equal")
@@ -129,10 +133,10 @@ def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
 	eps : float (optional)
 		Precision of the period.
 	"""
-	
+
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
-	
+
 	res = meth_epsilon(y0, t0, tf, 1e-7, derivative, step_rk4)
 	N = len(res)
 	h = (tf - t0) / N
@@ -143,12 +147,13 @@ def find_period(y0, t0, tf, a, b, c, d, eps=5e-3):
 		if abs(x[0] - x[i]) < eps and abs(y[0] - y[i]) < eps:
 			return h * i
 
+
 def plot_solutions(y0, t0, tf, a, b, c, d):
 
 	def derivative(Y, t):
 		return np.array([Y[0] * (a - b * Y[1]), Y[1] * (c * Y[0] - d)])
-	
-	delta = 0.2
+
+	delta = 0.4
 	num = 5
 	i = 0
 	initial_values = np.zeros((num * num, 2))
@@ -174,10 +179,10 @@ if __name__ == '__main__':
 	N = 40
 	t0, tf = 0, 8
 
-	# first_models(y0, t0, tf, N, gamma, k)
+	first_models(y0, t0, tf, N, gamma, k)
 
-	param = [1.2, 1, 0.8, 1]
-	y0 = np.array([0.7, 0.3])
+	param = [1, 0.5, 1, 1]  # a, b, c, d
+	y0 = np.array([2, 2])
 	N = 10
 	t0, tf = 0, 8.2
 
