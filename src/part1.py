@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from math import *
 
 def step_euler(y, t, h, f):
 	return y + h * f(y, t)
@@ -27,7 +28,7 @@ def meth_n_step(y0, t0, N, h, f, meth):
 	return res
 
 def meth_epsilon(y0, t0, tf, eps, f, meth):
-	N = 2
+	N = 128
 	h = (tf - t0) / N
 	y1 = meth_n_step(y0, t0, N, h, f, meth)
 	while True:
@@ -38,34 +39,57 @@ def meth_epsilon(y0, t0, tf, eps, f, meth):
 		if np.all(abs(y1 - y_tmp) < eps):
 			break
 		y1 = y2
+		print(N)
 	return y2
 
-def tangent_1D(f, ti, tf, yi, yf, step):
-    t = np.arange(ti, tf, step)
-    y = np.arange(yi, yf, step)
-    T, Y = np.meshgrid(t, y)
-    U = np.full(T.shape, 1)
-    V = f(T, Y)
-    plt.quiver(T, Y, U, V)
-    plt.xlabel('t')
-    plt.ylabel('y')
-    plt.show()
 
-def tangent_2D(f, ti, tf, yi, yf, step):
-    t = np.arange(ti, tf, step)
-    y1 = np.arange(yi, yf, step)
-    y2 = np.arange(yi, yf, step)
-    Y1, Y2 = np.meshgrid(y1, y2)
-    U = -Y2
-    V = Y1
-    plt.quiver(Y1, Y2, U, V)
-    plt.xlabel('y1')
-    plt.ylabel('y2')
-    plt.show()
+def tangent_2D(f, t0, tf, y0, yf, N):
+	y1 = np.linspace(y0, yf, N)
+	y2 = np.linspace(y0, yf, N)
+	Y1, Y2 = np.meshgrid(y1, y2)
+
+	U = np.ones_like(Y1)
+	V = np.zeros_like(Y2)
+	for t in range(t0, tf + 1):
+		for i in range(len(y1)):
+			for j in range(len(y2)):
+				y = np.array([y1[i], y2[j]])
+				pente = f(y, t)
+				U[j,i] = pente[0]
+				V[j,i] = pente[1]
+
+	N = np.sqrt(U**2 + V**2)
+	U /= N
+	V /= N
+
+	plt.quiver(Y1, Y2, U, V, color='b')
+	plt.xlabel('y1')
+	plt.ylabel('y2')
+	plt.show()
 
 if __name__ == '__main__':
-	f = lambda t, y: y / (1 + t * t)
-	tangent_1D(f, -2, 2, -2, 2, 0.2)
+	f = lambda y, t: np.array([y / (1 + t**2)])
+	y0 = np.array([1])
+	t0 = 0
+	tf = 10
+	eps = 1e-3
+	y = meth_epsilon(y0, t0, tf, eps, f, step_euler)
+	t = np.linspace(t0, tf, len(y))
 
-	f = lambda t, y: (-y[1] * y[1], y[0])
-	tangent_2D(f, 0, 10, -2, 2.5, 0.2)
+	plt.plot(t, y)
+	plt.show()
+
+
+	f = lambda y, t: np.array((-y[1], y[0]))
+	y0 = np.array([1, 0])
+	t0 = 0
+	tf = 2*pi
+	eps = 1e-3
+	y = meth_epsilon(y0, t0, tf, eps, f, step_euler)
+	t = np.linspace(t0, tf, len(y))
+
+	plt.scatter(y[:, 0], y[:, 1], c=t, marker='x', cmap="jet")
+	plt.colorbar()
+	plt.show()
+
+	tangent_2D(f, 0, 10, -2, 2, 20)
