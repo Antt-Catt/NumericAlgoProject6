@@ -36,7 +36,7 @@ def frequencies_theta_variable_graph(n):
     x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
     x = np.delete(x, np.where(x == 0))
     y = np.array([frequencies(x[i], step_euler) for i in range(n - 1)])
-    y_const = np.array([1/((2*np.pi)*math.sqrt(l/g)) for _ in range(n - 1)])
+    y_const = np.array([(1/(2*np.pi))*math.sqrt(g/l) for _ in range(n - 1)])
     plt.plot(x, y)
     plt.plot(x, y_const)
     plt.show()
