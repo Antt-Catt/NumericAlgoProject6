@@ -53,13 +53,13 @@ def meth_epsilon_convergence(y0, t0, tf, eps, f, meth):
 	h = (tf - t0) / N
 	y1 = meth_n_step(y0, t0, N, h, f, meth)
 	while True:
+		plt.plot(np.linspace(t0, tf, len(y1)), y1, label=f"N = {N}")
 		h /= 2
 		N *= 2
 		y2 = meth_n_step(y0, t0, N, h, f, meth)
 		y_tmp = y2[::2]
 		if np.all(abs(y1 - y_tmp) < eps):
 			break
-		plt.plot(np.linspace(t0, tf, len(y1)), y1, label=f"N = {N}")
 		y1 = y2
 	plt.plot(np.linspace(t0, tf, len(y1)), y1, label=f"N = {N}")
 	return y2
