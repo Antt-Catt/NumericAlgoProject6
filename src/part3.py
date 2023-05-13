@@ -10,27 +10,28 @@ g, l, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1, 1
 total_length = l1 + l2
 
 
-# 1.
 def is_max(res, i):
-    if (res[i - 1][0] < res[i][0] and res[i + 1][0] < res[i][0]):
-        return True
-    return False
+	if (res[i - 1][0] < res[i][0] and res[i + 1][0] < res[i][0]):
+		return True
+	return False
+
 
 def frequencies(theta_0, meth):
-    y0 = np.array([theta_0, 0])
-    t0 = 0
-    N = 10000
-    h = 10/N
-    f = lambda x, t: np.array([x[1], -(g/l)*np.sin(x[0])])
-    res = meth_n_step(y0, t0, N, h, f, meth)
-    i_1 = 1
-    while (not(is_max(res, i_1))):
-        i_1 += 1
-    i_2 = i_1 + 1
-    while (not(is_max(res, i_2))):
-        i_2 += 1
-    T = (i_2 - i_1)*h
-    return 1/T
+	y0 = np.array([theta_0, 0])
+	t0 = 0
+	N = 10000
+	h = 10 / N
+	f = lambda x, t: np.array([x[1], -(g / l) * np.sin(x[0])])
+	res = meth_n_step(y0, t0, N, h, f, meth)
+	i_1 = 1
+	while (not (is_max(res, i_1))):
+		i_1 += 1
+	i_2 = i_1 + 1
+	while (not (is_max(res, i_2))):
+		i_2 += 1
+	T = (i_2 - i_1) * h
+	return 1 / T
+
 
 def frequencies_theta_variable_graph(n):
     x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
@@ -45,9 +46,15 @@ def frequencies_theta_variable_graph(n):
 def w(Y, t):
 	theta1, dtheta1, theta2, dtheta2 = Y
 	D = (2 * m1 + m2 - m2 * cos(2 * theta1 - 2 * theta2))
-	N1 = -g * (2 * m1 + m2) * sin(theta1) - m2 * g * sin(theta1 - 2 * theta2) - 2 * sin(theta1 - theta2) * m2 * (dtheta2 * dtheta2 * l2 + dtheta1 * dtheta1 * l1 * cos(theta1 - theta2))
-	N2 = 2 * sin(theta1 - theta2) * (dtheta1 * dtheta1 * l1 * (m1 + m2) + g * (m1 + m2) * cos(theta1) + dtheta2 * dtheta2 * l2 * m2 * cos(theta1 - theta2))
+	N1 = -g * (2 * m1 + m2) * sin(theta1) - m2 * g * sin(
+	    theta1 - 2 * theta2) - 2 * sin(theta1 - theta2) * m2 * (
+	        dtheta2 * dtheta2 * l2 +
+	        dtheta1 * dtheta1 * l1 * cos(theta1 - theta2))
+	N2 = 2 * sin(theta1 - theta2) * (dtheta1 * dtheta1 * l1 * (m1 + m2) + g *
+	                                 (m1 + m2) * cos(theta1) + dtheta2 *
+	                                 dtheta2 * l2 * m2 * cos(theta1 - theta2))
 	return np.array([dtheta1, N1 / (D * l1), dtheta2, N2 / (D * l2)])
+
 
 def double_pendulum(y, vy, t0, tf):
 	theta1, theta2 = y
@@ -79,6 +86,7 @@ def double_pendulum(y, vy, t0, tf):
 	plt.show()
 
 	return theta1, theta2, t
+
 
 def animate_double_pendulum(theta1, theta2, t):
 	X1 = l1 * np.sin(theta1)
@@ -114,13 +122,15 @@ def animate_double_pendulum(theta1, theta2, t):
 	plt.legend()
 	plt.show()
 
+
 def find_first_loop(theta1, theta2, t):
 	for i, ti in enumerate(t):
 		if abs(theta2[i]) > pi:
 			return ti
 
+
 if __name__ == '__main__':
-	angles = np.array([pi/2, 0])
+	angles = np.array([pi / 2, 0])
 	angular_speed = np.array([4, 0])
 	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
 	animate_double_pendulum(theta1, theta2, t)
