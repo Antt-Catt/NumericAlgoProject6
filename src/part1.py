@@ -4,6 +4,20 @@ import math as math
 
 
 def step_euler(y, t, h, f):
+	"""
+	Function to compute the next value with euler method.
+
+	Parameters
+	----------
+	y : array of floats
+		Current value(s).
+	t : float
+		Current time.
+	h: float
+		Step.
+	f: function
+		Function representing the differential equation.
+	"""
 	return y + h * f(y, t)
 
 
@@ -26,6 +40,24 @@ def step_rk4(y, t, h, f):
 
 
 def meth_n_step(y0, t0, N, h, f, meth):
+	"""
+	Function to compute N steps after y0
+
+	Parameters
+	----------
+	y : array of floats
+		Initial value(s).
+	t : float
+		Initial time.
+	N : integer
+		Number of subdivisions.
+	h : float
+		Step.
+	f : function
+		Function representing the differential equation.
+	meth : function
+		Method used to compute next values (step_euler, step_middle_point, step_heun or step_rk4).
+	"""
 	res = np.zeros((N, len(y0)))
 	res[0] = y0.copy()
 	for i in range(1, N):
@@ -34,6 +66,24 @@ def meth_n_step(y0, t0, N, h, f, meth):
 
 
 def meth_epsilon(y0, t0, tf, eps, f, meth):
+	"""
+	Function to compute the approximate solution of the differential equation
+	
+	Parameters
+	----------
+	y0 : array of floats
+		Initial value(s).
+	t0 : float
+		Initial time.
+	tf : float
+		Final time.
+	eps : float
+		Tolerance for convergence.
+	f : callable
+		Function representing the differential equation.
+	meth : callable
+		Method used to compute next values (step_euler, step_middle_point, step_heun or step_rk4)
+	"""
 	N = 128
 	h = (tf - t0) / N
 	y1 = meth_n_step(y0, t0, N, h, f, meth)
@@ -49,6 +99,25 @@ def meth_epsilon(y0, t0, tf, eps, f, meth):
 
 
 def meth_epsilon_convergence(y0, t0, tf, eps, f, meth):
+	"""
+	Function to compute the approximate solution of the differential equation, ploting all the previous solutions to see the convergence
+	
+	Parameters
+	----------
+	y0 : array of floats
+		Initial value(s).
+	t0 : float
+		Initial time.
+	tf : float
+		Final time.
+	eps : float
+		Tolerance for convergence.
+	f : callable
+		Function representing the differential equation.
+	meth : callable
+		Method used to compute next values (step_euler, step_middle_point, step_heun or step_rk4)
+	"""
+
 	N = 128
 	h = (tf - t0) / N
 	y1 = meth_n_step(y0, t0, N, h, f, meth)
@@ -66,6 +135,24 @@ def meth_epsilon_convergence(y0, t0, tf, eps, f, meth):
 
 
 def tangent_2D(f, t0, tf, y0, yf, N):
+	"""
+	Function to draw the tangent field of a differential equation.
+
+	Parameters
+	----------
+	f callable:
+		Function representing the differential equation.
+	t0 float:
+		Initial time.
+	tf float:
+		Final time.
+	y0 float:
+		Minimum value of y1 and y2.
+	yf float:
+		Maximum value of y1 and y2.
+	N int:
+		Number of points to use in each direction to discretize the phase space.
+	"""
 	y1 = np.linspace(y0, yf, N)
 	y2 = np.linspace(y0, yf, N)
 	Y1, Y2 = np.meshgrid(y1, y2)
