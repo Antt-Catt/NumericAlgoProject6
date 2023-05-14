@@ -42,7 +42,7 @@ def frequencies(theta_0):
 	Returns
 	-------
 	f : float
-		Frequency of the pendulum.
+		Frequency of the oscillations.
 	"""
 	y0 = np.array([theta_0, 0])
 	t0 = 0
@@ -181,7 +181,7 @@ def animate_double_pendulum(theta1, theta2, t):
 		line2.set_data([X1[i], X2[i]], [Y1[i], Y2[i]])
 		return line1, line2, m1, m2
 
-	FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
+	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
 	plt.title("Animation du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
