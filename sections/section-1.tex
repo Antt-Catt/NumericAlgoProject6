@@ -54,7 +54,9 @@ chaque fonction correspondant à une méthode est nommée sous la forme : \textt
 une unique itération de la méthode.
 
 Nous avons ensuite implémenté \texttt{meth\_n\_step} qui calcule un nombre $N$ d'étapes avec un pas constant $h$,
-puis \texttt{meth\_epsilon} qui calcule une solution approchée avec un paramètre d’erreur epsilon.
+puis \texttt{meth\_epsilon} qui calcule une solution approchée avec un paramètre d’erreur $\epsilon$.
+En pratique, à chaque itération si l'erreur entre deux itérations successives est inférieure à $\epsilon$,
+alors on arrête le calcul et on renvoie la solution.
 
 Nous avons aussi implémenté une fonction \texttt{meth\_epsilon\_convergence} nous permettant de visualiser
 sur un graphique la convergence de nos solutions.
@@ -71,8 +73,11 @@ lorsque le nombre de subdivisions augmente.
 \end{figure}
 
 Sur l'ensemble des quatres méthodes de résolution, la plus précise est celle de Runge-Kutta, puisqu'elle est d'ordre $4$.
+
 En revanche, elle est aussi la plus coûteuse en temps de calcul, puisqu'elle nécessite, au minimum, quatres appels à la fonction $f$ pour un unique pas de temps.
+
 La méthode d'Euler est la moins précise (ordre $1$), mais aussi la plus rapide, puisqu'elle ne nécessite qu'un seul appel à la fonction $f$ par pas de temps.
+
 Les autres méthodes constituent un bon compromis entre précision et temps de calcul, puisque la méthode du point milieu et celle de Heun sont d'ordre $2$, et nécessitent deux appels à la fonction $f$ par pas de temps.
 
 \subsection{Champ des tangentes}
