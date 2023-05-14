@@ -9,20 +9,47 @@ g, l, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1, 1
 
 total_length = l1 + l2
 
-
 def is_max(res, i):
+	"""
+	Function to check if the value at index i is a maximum
+
+	Parameters
+	----------
+	res : array of floats
+		Array of values.
+	i : integer
+		Index of the value to check if it is a maximum.
+
+	Returns
+	-------
+	boolean
+		True if the value at index i is a maximum, False otherwise.
+	"""
 	if (res[i - 1][0] < res[i][0] and res[i + 1][0] < res[i][0]):
 		return True
 	return False
 
 
-def frequencies(theta_0, meth):
+def frequencies(theta_0):
+	"""
+	Function to compute the frequency of the pendulum
+
+	Parameters
+	----------
+	theta_0 : float
+		Initial angle.
+
+	Returns
+	-------
+	f : float
+		Frequency of the pendulum.
+	"""
 	y0 = np.array([theta_0, 0])
 	t0 = 0
 	N = 10000
 	h = 10 / N
 	f = lambda x, t: np.array([x[1], -(g / l) * np.sin(x[0])])
-	res = meth_n_step(y0, t0, N, h, f, meth)
+	res = meth_n_step(y0, t0, N, h, f, step_euler)
 	i_1 = 1
 	while (not (is_max(res, i_1))):
 		i_1 += 1
@@ -30,18 +57,22 @@ def frequencies(theta_0, meth):
 	while (not (is_max(res, i_2))):
 		i_2 += 1
 	T = (i_2 - i_1) * h
-	return 1 / T
+	f = 1 / T
+	return f
 
 
-def frequencies_theta_variable_graph(n):
-    x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
-    x = np.delete(x, np.where(x == 0))
-    y = np.array([frequencies(x[i], step_euler) for i in range(n - 1)])
-    y_const = np.array([(1/(2*np.pi))*math.sqrt(g/l) for _ in range(n - 1)])
-    plt.plot(x, y)
-    plt.plot(x, y_const)
-    plt.show()
-
+def frequencies_theta_variable_graph():
+	"""
+	Function to plot the frequencies of the pendulum with theta_0 varying
+	"""
+	n = 200
+	x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
+	x = np.delete(x, np.where(x == 0))
+	y = np.array([frequencies(x[i]) for i in range(n - 1)])
+	y_const = np.array([(1/(2*np.pi))*math.sqrt(g/l) for _ in range(n - 1)])
+	plt.plot(x, y)
+	plt.plot(x, y_const)
+	plt.show()
 
 def w(Y, t):
 	theta1, dtheta1, theta2, dtheta2 = Y
@@ -57,6 +88,29 @@ def w(Y, t):
 
 
 def double_pendulum(y, vy, t0, tf):
+	"""
+	Numerical simulation of the double pendulum
+
+	Parameters
+	----------
+	y : array
+		array of initial conditions
+	vy : array
+		array of initial conditions for the derivatives
+	t0 : float
+		initial time
+	tf : float
+		final time
+	
+	Returns
+	-------
+	theta1 : array
+		array of values of the first angle
+	theta2 : array
+		array of values of the second angle
+	t : array
+		array of time values
+	"""
 	theta1, theta2 = y
 	dtheta1, dtheta2 = vy
 	y0 = np.array([theta1, dtheta1, theta2, dtheta2])
@@ -89,6 +143,18 @@ def double_pendulum(y, vy, t0, tf):
 
 
 def animate_double_pendulum(theta1, theta2, t):
+	"""
+	Animation of the double pendulum, using two initial angles
+
+	Parameters
+	----------
+	theta1 : float
+		first initial angle
+	theta2 : float
+		second initial angle
+	t : array
+		array of time values, to be used as the x-axis
+	"""
 	X1 = l1 * np.sin(theta1)
 	X2 = X1 + l2 * np.sin(theta2)
 
@@ -115,8 +181,8 @@ def animate_double_pendulum(theta1, theta2, t):
 		line2.set_data([X1[i], X2[i]], [Y1[i], Y2[i]])
 		return line1, line2, m1, m2
 
-	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
-	# plt.title("")
+	FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
+	plt.title("Animation du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
 	plt.legend()
@@ -124,6 +190,23 @@ def animate_double_pendulum(theta1, theta2, t):
 
 
 def find_first_loop(theta1, theta2, t):
+	"""
+	Function to find the time at which the second mass completes its first loop
+
+	Parameters
+	----------
+	theta1 : array
+		array of the first mass' angles
+	theta2 : array
+		array of the second mass' angles
+	t : array
+		array of time values
+	
+	Returns
+	-------
+	ti : float
+		time at which the second mass completes its first loop
+	"""
 	for i, ti in enumerate(t):
 		if abs(theta2[i]) > pi:
 			return ti
@@ -131,8 +214,8 @@ def find_first_loop(theta1, theta2, t):
 
 
 if __name__ == '__main__':
-	# frequencies_theta_variable_graph(100)
-
+	frequencies_theta_variable_graph()
+	
 	angles = np.array([pi / 2, 0])
 	angular_speed = np.array([4, 0])
 	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
