@@ -1,20 +1,8 @@
-\documentclass{article}
+\section{Pendule à $N$ maillons}
 
-\usepackage[english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[]{hyperref}
-\usepackage{graphicx, float}
-\usepackage{subfig}
-\usepackage{amssymb, amsmath, amsthm}
-
-\usepackage{amsmath} 
 \renewcommand*{\overrightarrow}[1]{\vbox{\halign{##\cr 
   \tiny\rightarrowfill\cr\noalign{\nointerlineskip\vskip1pt} 
   $#1\mskip2mu$\cr}}}
-
-\begin{document}
-
-\section*{PENDULE À N MAILLONS}
 
 Dans cette partie, nous allons considérer deux types de pendules à n maillons (le pendule simple et le pendule double) et chercher à 
 résoudre leur équation du mouvement par les méthodes numériques implémentées dans la première partie.
@@ -28,7 +16,7 @@ D'après le théorème du moment cinétique appliqué en M par rapport à O on a
 Le moment de \overrightarrow{T} est nul car \overrightarrow{OM} et \overrightarrow{T} sont colinéaires. En développant l'expression, on a alors 
 $ m l^{2} \ddot \theta = - m l g \sin{\theta} $, ce qui nous donne finalement 
 \begin{equation}
-    \ddot \theta + \frac{g}{l} \sin{\theta}= 0 \nonumber
+	\ddot \theta + \frac{g}{l} \sin{\theta}= 0 \nonumber
 \end{equation}
 
 On retrouve l'équation différentielle non linéaire du second ordre bien connu du pendule simple. 
@@ -59,11 +47,11 @@ la fréquence est égale à la valeur $ \frac{1}{2 \pi} \sqrt{\frac{g}{l}} $.
 reliées par deux tiges de longueur $ l_{1} $ et $ l _{2} $. On note $ \theta_{1} $ et $ \theta_{2} $ les angles
 que font les tiges avec la verticale. On a alors les deux équations suivantes qui décrivent le mouvement du pendule:
 \begin{equation}
-    \begin{cases}
-        \ddot \theta_{1} = \frac{m_{2} g \sin(\theta_{2}) \cos(\theta_{1} - \theta_{2}) + m_{2} l_{1} \dot \theta_{1}^{2} \sin(\theta_{1} - \theta_{2}) \cos(\theta_{1} - \theta_{2}) + m_{2} l_{2} \dot \theta_{2}^{2} \sin(\theta_{1} - \theta_{2}) - (m_{1} + m_{2}) g \sin(\theta_{1})}{(m_{1} + m_{2}) l_{1} - m_{2} l_{1} \cos^{2}(\theta_{1} - \theta_{2})}  \\ \nonumber
-        \ddot \theta_{2} = \frac{- m_{2} l_{2} \dot \theta_{2}^{2} \sin(\theta_{1} - \theta_{2}) \cos(\theta_{1} - \theta_{2}) + (m_{1} + m_{2}) (g \sin(\theta_{1}) \cos( \cos(\theta_{1} - \theta_{2})) - l_{1} \dot \theta_{1}^{2} \sin(\theta_{1} - \theta_{2}) - g \sin(\theta_{2}))}{(m_{1} + m_{2}) l_{2} - m_{2} l_{2} \cos^{2}(\theta_{1} - \theta_{2})}  
-    \end{cases}
-    \label{eq:pendule_2_maillons}
+	\begin{cases}
+		\ddot \theta_{1} = \frac{m_{2} g \sin(\theta_{2}) \cos(\theta_{1} - \theta_{2}) + m_{2} l_{1} \dot \theta_{1}^{2} \sin(\theta_{1} - \theta_{2}) \cos(\theta_{1} - \theta_{2}) + m_{2} l_{2} \dot \theta_{2}^{2} \sin(\theta_{1} - \theta_{2}) - (m_{1} + m_{2}) g \sin(\theta_{1})}{(m_{1} + m_{2}) l_{1} - m_{2} l_{1} \cos^{2}(\theta_{1} - \theta_{2})}  \\ \nonumber
+		\ddot \theta_{2} = \frac{- m_{2} l_{2} \dot \theta_{2}^{2} \sin(\theta_{1} - \theta_{2}) \cos(\theta_{1} - \theta_{2}) + (m_{1} + m_{2}) (g \sin(\theta_{1}) \cos( \cos(\theta_{1} - \theta_{2})) - l_{1} \dot \theta_{1}^{2} \sin(\theta_{1} - \theta_{2}) - g \sin(\theta_{2}))}{(m_{1} + m_{2}) l_{2} - m_{2} l_{2} \cos^{2}(\theta_{1} - \theta_{2})}  
+	\end{cases}
+	\label{eq:pendule_2_maillons}
 \end{equation}
 
 Ce sont deux équations différentielles non linéaires du second ordre. 
@@ -77,16 +65,16 @@ on obtient les figures~\ref{fig:traj_0} et~\ref{fig:traj_12} suivante:
 
 \begin{figure} [htbp!]
   \begin{minipage}[c]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{res/traj_0.png}
-    \caption{Trajectoire pour $ \theta_{2}(0) = 0 $}
-      \label{fig:traj_0}
+	\centering
+	\includegraphics[width=\textwidth]{res/traj_0.png}
+	\caption{Trajectoire pour $ \theta_{2}(0) = 0 $}
+	  \label{fig:traj_0}
   \end{minipage}\hfill
   \begin{minipage}[c]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{res/traj_12.png}
-    \caption{Trajectoire pour $ \theta_{2}(0) = \frac{\pi}{15} $}
-      \label{fig:traj_12}
+	\centering
+	\includegraphics[width=\textwidth]{res/traj_12.png}
+	\caption{Trajectoire pour $ \theta_{2}(0) = \frac{\pi}{15} $}
+	  \label{fig:traj_12}
   \end{minipage}
 \end{figure}
 
@@ -109,18 +97,16 @@ $ \dot \theta_{1} = 8 $ rad/s et des valeurs nulles pour les autres paramètres.
 on peut observer le retournement du pendule (au bout de 5.3 secondes).
 
 \begin{figure} [htbp!]
-  \begin{minipage}[c]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{res/no_retournement.png}
-    \caption{Pas de retournement du pendule}
-      \label{fig:no_retournement}
-  \end{minipage}\hfill
-  \begin{minipage}[c]{0.5\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{res/retournement.png}
-    \caption{Retournement du pendule}
-      \label{fig:retournement}
-  \end{minipage}
+	\begin{minipage}[c]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{res/no_retournement.png}
+		\caption{Pas de retournement du pendule}
+		\label{fig:no_retournement}
+	\end{minipage}\hfill
+	\begin{minipage}[c]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{res/retournement.png}
+		\caption{Retournement du pendule}
+		\label{fig:retournement}
+	\end{minipage}
 \end{figure}
-
-\end{document}
