@@ -1,4 +1,4 @@
-# Dépôt Git IS104 (Project n°6)
+# IS104 Git Repository (Project n°6)
 
 ## Groupe 4 - Equipe 4
 
