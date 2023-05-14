@@ -66,7 +66,7 @@ def frequencies_theta_variable_graph():
 	"""
 	Function to plot the frequencies of the pendulum with theta_0 varying
 	"""
-	n = 300
+	n = 100
 	x = np.array([(-np.pi / 2) + np.pi * i / n for i in range(n)])
 	x = np.delete(x, np.where(x == 0))
 	y = np.array([frequencies(x[i]) for i in range(n - 1)])
@@ -74,11 +74,12 @@ def frequencies_theta_variable_graph():
 	    (1 / (2 * np.pi)) * math.sqrt(g / l) for _ in range(n - 1)
 	])
 	plt.title("Fréquence du pendule simple")
-	plt.plot(x, y, color="blue", label="Fréquence")
-	plt.plot(x, y_const, color="red")
+	plt.plot(x, y_const, label=r"$\frac{1}{2 \pi} \sqrt{g / l}$")
+	plt.plot(x, y, label="Fréquence calculée")
 	plt.xlabel("θ")
 	plt.ylabel("f")
 	plt.legend()
+	plt.grid()
 	plt.show()
 
 
@@ -223,8 +224,8 @@ def find_first_loop(theta1, theta2, t):
 if __name__ == '__main__':
 	frequencies_theta_variable_graph()
 
-	angles = np.array([pi / 2, 0])
-	angular_speed = np.array([4, 0])
+	angles = np.array([0, 0])
+	angular_speed = np.array([0, 8])
 	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
 	animate_double_pendulum(theta1, theta2, t)
 

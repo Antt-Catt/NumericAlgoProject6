@@ -5,13 +5,12 @@
   $#1\mskip2mu$\cr}}}
 
 Dans cette partie, nous allons considérer deux types de pendules à $N$ maillons (le pendule simple et le pendule double) et chercher à 
-résoudre leurs équations de mouvement par les méthodes numériques implémentées dans la première partie.
+résoudre leurs équations de mouvement par les méthodes numériques implémentées dans la section~\ref{sec:sec1}.
 
 \subsection{Pendule simple}
 Dans le cas du pendule simple, il y a deux forces qui s'appliquent sur la masse $m$:
 le poids de la masse \overrightarrow{P} et la force de la tige \overrightarrow{T}.
-
-D'après le théorème du moment cinétique appliqué en $M$ par rapport à $O$, on a l'équation
+Selon le théorème du moment cinétique appliqué en $M$ par rapport à $O$, on a
 $\frac{d\overrightarrow{L_{O,M}}}{dt} = \overrightarrow{M_{O, M}(\overrightarrow{P})} + \overrightarrow{M_{O, M}(\overrightarrow{T})}$.
 
 Le moment de \overrightarrow{T} est nul, car \overrightarrow{OM} et \overrightarrow{T} sont colinéaires. En développant l'expression, on a alors 
@@ -19,29 +18,24 @@ $m l^{2} \ddot \theta = - m l g \sin{\theta} $, ce qui nous donne finalement l'�
 
 On retrouve l'équation différentielle non linéaire du second ordre bien connue du pendule simple. 
 Pour la résoudre numériquement en fonction de l'angle initial $ \theta_0 $, et de la vitesse initiale $ \dot \theta_0 $,
-on peut utiliser une les méthodes implémentées dans la première partie comme par exemple la méthode d'Euler.
-
-Une fois trouvée la fonction $ \theta(t) $, on peut calculer la période du pendule en prenant la différence entre 
-deux maximum successifs, ce qui permettra de déterminer la fréquence.
-
-\bigskip
+on peut utiliser une des méthodes implémentées auparavant, comme par exemple la méthode d'Euler.
+Une fois que la fonction $ \theta(t) $ a été approchée, on peut calculer la période du pendule en prenant la différence entre 
+deux maxima successifs, ce qui permet de déterminer la fréquence.
 
 En affichant les différentes fréquences du pendule pour des valeurs de $ \theta_{0} $ variant de $ -\frac{\pi}{2} $ à $ \frac{\pi}{2} $, 
 on obtient la figure~\ref{fig:frequences}.
 
 \begin{figure}[htbp!]
 	\centering
-	\includegraphics[width=0.4\textwidth]{res/freq_pendule_simple.png}
+	\includegraphics[width=0.45\textwidth]{res/freq_pendule_simple.png}
 	\caption{Fréquence du pendule en fonction de l'angle initial $ \theta_{0}$}
 	\label{fig:frequences}
 \end{figure}
 
-\bigskip
-
 On remarque bien que pour des valeurs de $ \theta_0 $ faibles représentant les petites oscillations du pendule, 
 la fréquence semble bien égale à la valeur $ \frac{1}{2 \pi} \sqrt{\frac{g}{l}} $.
 
-\subsection{Le pendule double}
+\subsection{Double pendule}
 Le pendule à deux maillons est constitué de deux masses $ m_1 $ et $ m_2 $ 
 reliées par deux tiges de longueur $ l_1 $ et $ l _2 $. On note $ \theta_1 $ et $ \theta_2 $ les angles
 que font les tiges avec la verticale. Dans la littérature, on trouve les deux équations donnant $\ddot \theta_1$ et $\ddot \theta_2$ en fonction des autres paramètres.
@@ -49,27 +43,10 @@ que font les tiges avec la verticale. Dans la littérature, on trouve les deux �
 La mise sous forme du système d'équations différentielles comme précisé en première partie est plus complexe,
 puisqu'il faut passer par un vecteur de résolution de dimension $4$.
 En effet, le système possède $4$ conditions initiales, à savoir les angles initiaux, et les vitesses initiales.
-On a donc le vecteur $ U = (\theta_1, \theta_2, \dot \theta_1, \dot \theta_2) $, et on peut donc écrire sa dérivée en fonction de ses variables, et des équations~\ref{eq:pendule_2m_t1} et~\ref{eq:pendule_2m_t2},
+On a donc le vecteur $ U = (\theta_1, \theta_2, \dot \theta_1, \dot \theta_2) $, et on peut donc écrire sa dérivée en fonction de ses variables, et des équations donnant $\ddot \theta_1$ et $\ddot \theta_2$,
 ce qui nous donne le vecteur $ U' = (\dot \theta_1, \dot \theta_2, \ddot \theta_1, \ddot \theta_2) $.
-\medbreak
-En dessinant les trajectoires des pendules pour deux conditions initiales différentes, mais très proches, comme par exemple 
-$ \theta_1(0) = \frac{\pi}{2} $, $ \dot \theta_1(0) = \dot \theta_2(0) = 0 $, avec seulement une différence sur l'angle initial $ \theta_2(0) $ de 12 degré (soit $ \theta_2(0) = 0 $ et $ \theta_2(0) = \frac{\pi}{15} $),
-on obtient les figures~\ref{fig:traj_0} et~\ref{fig:traj_12} suivante:
 
-\begin{figure} [htbp!]
-	\begin{minipage}[c]{0.45\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{res/traj_0.png}
-		\caption{Trajectoire pour $ \theta_{2}(0) = 0 $}
-		\label{fig:traj_0}
-	\end{minipage}\hfill
-	\begin{minipage}[c]{0.45\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{res/traj_12.png}
-		\caption{Trajectoire pour $ \theta_{2}(0) = \frac{\pi}{15} $}
-		\label{fig:traj_12}
-	\end{minipage}
-\end{figure}
+\medbreak
 
 Les croix représentent le début du parcours de l'extrémité de chaque pendule.
 On remarque que les trajectoires suivent tout d'abord le même chemin puis divergent complètement au cours du temps.
@@ -77,29 +54,26 @@ On remarque que les trajectoires suivent tout d'abord le même chemin puis diver
 À l'inverse du pendule simple où les trajectoires sont des ellipses peu importe les conditions initiales, 
 le pendule double est quant à lui un système très sensible à celles-ci: c'est un système chaotique.  
 
-\bigskip
+\medbreak
 
 Une fois les trajectoires calculées, on peut s'intéresser au temps que met le pendule à se retourner (la masse $ m_2 $ passe au
 dessus de $ m_1 $).
 Ce retournement arrive lorsque $ \theta_2 $ dépasse en valeur absolue $ \pi $.
-Pour des conditions initiales bien choisies, on peut observer un pendule qui ne se retourne jamais.
-Comme par exemple avec des conditions initiales proche de zéro comme on peut le voir sur la figure~\ref{fig:no_retournement}. 
-
-Mais si on vient à augmenter les valeurs des angles initiaux, ou des vitesses angulaires initiales, on peut observer un retournement du pendule.
-Comme par exemple avec les conditions initiales suivantes: $ \dot \theta_{1} = 8 $ rad/s et des valeurs nulles pour les autres paramètres.
-On obtient alors la figure~\ref{fig:retournement} dans laquelle on peut observer le retournement du pendule, au bout de $5.3$ secondes.
+Pour des valeurs faibles des conditions initiales, on peut observer que le pendule ne se retourne pas, comme dans la figure~\ref{fig:no_retournement}.
+En revanche, lorsqu'on augmente les vitesse angulaires, on peut généralement observer un retournement du pendule, comme dans la figure~\ref{fig:retournement}.
+Ces deux figures ont été tracées avec des conditions initiales nulles, excepté pour la vitesse angulaire $ \dot \theta_2 $.
 
 \begin{figure} [htbp!]
 	\begin{minipage}[c]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{res/no_retournement.png}
-		\caption{Pas de retournement du pendule}
+		\caption{Pas de retournement, $\dot \theta_2 = 4$ rad}
 		\label{fig:no_retournement}
 	\end{minipage}\hfill
 	\begin{minipage}[c]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{res/retournement.png}
-		\caption{Retournement du pendule}
+		\caption{Retournement, $\dot \theta_2 = 8$ rad}
 		\label{fig:retournement}
 	\end{minipage}
 \end{figure}
