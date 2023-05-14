@@ -58,6 +58,29 @@ def w(Y, t):
 
 
 def double_pendulum(y, vy, t0, tf):
+	"""
+	Numerical simulation of the double pendulum
+
+	Parameters
+	----------
+	y : array
+		array of initial conditions
+	vy : array
+		array of initial conditions for the derivatives
+	t0 : float
+		initial time
+	tf : float
+		final time
+	
+	Returns
+	-------
+	theta1 : array
+		array of values of the first angle
+	theta2 : array
+		array of values of the second angle
+	t : array
+		array of time values
+	"""
 	theta1, theta2 = y
 	dtheta1, dtheta2 = vy
 	y0 = np.array([theta1, dtheta1, theta2, dtheta2])
@@ -90,6 +113,18 @@ def double_pendulum(y, vy, t0, tf):
 
 
 def animate_double_pendulum(theta1, theta2, t):
+	"""
+	Animation of the double pendulum, using two initial angles
+
+	Parameters
+	----------
+	theta1 : float
+		first initial angle
+	theta2 : float
+		second initial angle
+	t : array
+		array of time values, to be used as the x-axis
+	"""
 	X1 = l1 * np.sin(theta1)
 	X2 = X1 + l2 * np.sin(theta2)
 
@@ -116,7 +151,7 @@ def animate_double_pendulum(theta1, theta2, t):
 		line2.set_data([X1[i], X2[i]], [Y1[i], Y2[i]])
 		return line1, line2, m1, m2
 
-	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
+	FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
 	plt.title("Animation du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
@@ -125,6 +160,23 @@ def animate_double_pendulum(theta1, theta2, t):
 
 
 def find_first_loop(theta1, theta2, t):
+	"""
+	Function to find the time at which the second mass completes its first loop
+
+	Parameters
+	----------
+	theta1 : array
+		array of the first mass' angles
+	theta2 : array
+		array of the second mass' angles
+	t : array
+		array of time values
+	
+	Returns
+	-------
+	ti : float
+		time at which the second mass completes its first loop
+	"""
 	for i, ti in enumerate(t):
 		if abs(theta2[i]) > pi:
 			return ti
