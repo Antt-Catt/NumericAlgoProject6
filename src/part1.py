@@ -89,7 +89,7 @@ def meth_epsilon_convergence(y0, t0, tf, eps, f, meth):
 		plt.plot(np.linspace(t0, tf, len(y1)), y1, label='N =' + str(N))
 		y1 = y2
 	plt.plot(np.linspace(t0, tf, len(y1)), y1, label='N =' + str(N))
-	plt.title("Différentes courbes obtenues selon le nombre d'intervalles")
+	plt.title("Differentes courbes obtenues selon le nombre d'intervalles")
 	plt.xlabel("temps")
 	plt.ylabel("y")
 	plt.legend()
@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
 	plt.subplot(1, 2, 1)
 	plt.scatter(y[:, 0], y[:, 1], c = t, marker = 'x', cmap = "jet")
-	plt.title("Tracé de la solution en fonction du temps")
+	plt.title("Trace de la solution en fonction du temps")
 	plt.xlabel("y[0]")
 	plt.ylabel("y[1]")
 	plt.colorbar(label = "temps")

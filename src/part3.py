@@ -73,7 +73,7 @@ def double_pendulum(y, vy, t0, tf):
 	Y1 = -l1 * np.cos(theta1)
 	Y2 = Y1 - l2 * np.cos(theta2)
 
-	plt.title("Problème du double pendule")
+	plt.title("Probleme du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
 	plt.plot(0, 0, color="black", marker="o", label="Point d'attache")
@@ -116,7 +116,7 @@ def animate_double_pendulum(theta1, theta2, t):
 		return line1, line2, m1, m2
 
 	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
-	plt.title("Animation du double pendule")
+	# plt.title("")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
 	plt.legend()
@@ -127,9 +127,12 @@ def find_first_loop(theta1, theta2, t):
 	for i, ti in enumerate(t):
 		if abs(theta2[i]) > pi:
 			return ti
+			
 
 
 if __name__ == '__main__':
+	# frequencies_theta_variable_graph(100)
+
 	angles = np.array([pi / 2, 0])
 	angular_speed = np.array([4, 0])
 	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
