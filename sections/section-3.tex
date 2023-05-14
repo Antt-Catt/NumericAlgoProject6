@@ -15,7 +15,7 @@ $\frac{d\overrightarrow{L_{O,M}}}{dt} = \overrightarrow{M_{O, M}(\overrightarrow
 Or, le moment de \overrightarrow{T} est nul, car \overrightarrow{OM} et \overrightarrow{T} sont colinéaires.
 En développant, on obtient $m l^{2} \ddot \theta = - m l g \sin{\theta} $, ce qui nous donne finalement $\ddot \theta + \frac{g}{l} \sin{\theta}= 0$.
 
-On retrouve l'équation différentielle non linéaire du second ordre bien connue du pendule simple. 
+On retrouve l'équation différentielle non-linéaire du second ordre bien connue du pendule simple. 
 Pour la résoudre numériquement en fonction de l'angle initial $ \theta_0 $, et de la vitesse initiale $ \dot \theta_0 $,
 on peut utiliser une des méthodes implémentées auparavant, comme par exemple la méthode d'Euler.
 Une fois que la fonction $ \theta(t) $ a été approchée, on peut calculer la période du pendule en prenant la différence entre 
@@ -33,7 +33,6 @@ La fréquence pour de petites oscillations, $ \frac{1}{2 \pi} \sqrt{\frac{g}{l}}
 \end{figure}
 
 
-
 \subsection{Double pendule}
 
 Le pendule à deux maillons est constitué de deux masses $ m_1 $ et $ m_2 $ 
@@ -48,12 +47,11 @@ ce qui nous donne le vecteur $ U' = (\dot \theta_1, \dot \theta_2, \ddot \theta_
 
 Contrairement au pendule simple, le pendule double admet une trajectoire qui est très sensible aux conditions initiales, par son caractère chaotique, comme le montre la figure~\ref{fig:retournement}.
 
-Une fois les trajectoires calculées, on peut s'intéresser au temps que met le pendule à se retourner (la masse $ m_2 $ passe au
-dessus de $ m_1 $).
+Une fois les trajectoires calculées, on peut s'intéresser au temps que met le pendule à se retourner (la masse $ m_2 $ passe au-dessus de $ m_1 $).
 Ce retournement arrive lorsque $ \theta_2 $ dépasse en valeur absolue $ \pi $.
 Pour des valeurs faibles des conditions initiales, le pendule ne se retourne pas, comme dans la figure~\ref{fig:no_retournement},
 où $ \dot \theta_2 = 4 $ rad/s, et les autres conditions initiales sont nulles.
-En revanche, lorsqu'on augmente les vitesse angulaires, on observe généralement un retournement du pendule, comme dans la figure~\ref{fig:retournement}.
+En revanche, lorsqu'on augmente les vitesses angulaires, on observe généralement un retournement du pendule, comme dans la figure~\ref{fig:retournement}.
 
 \begin{figure} [H]
 	\begin{minipage}[c]{0.4\textwidth}

@@ -5,12 +5,12 @@ et le comparer à des modèles plus simples.
 
 
 \subsection{Modèles simplistes}
-Un des premiers modèle de population est celui de Malthus, qui suppose une croissance exponentielle de la population $N(t)$.
+Un des premiers modèles de population est celui de Malthus, qui suppose une croissance exponentielle de la population $N(t)$.
 Celui-ci utilise l'équation $\frac{dN(t)}{dt} = \gamma N(t)$, avec $\gamma \in \mathbb{R}$.
 
 Un coefficient $\gamma$ positif implique une croissance de la population, et un coefficient négatif une décroissance.
 Un autre modèle a été proposé, celui de Verhulst, utilisant une formule similaire à celle de Malthus,
-à la différence qu'il ne croît pas au delà d'une certaine population $\kappa$, ce qui simule une limite de ressources.
+à la différence qu'il ne croît pas au-delà d'une certaine population $\kappa$, ce qui simule une limite de ressources.
 Il utilise l'équation $\frac{dN(t)}{dt} = \gamma N(t) \left( 1 - \frac{N(t)}{\kappa} \right)$,
 avec $N(t)$ la population à l'instant $t$ (à un facteur près), $\gamma \in \mathbb{R}$ et $\kappa \in \mathbb{R}$.
 
@@ -61,7 +61,7 @@ de l'équation différentielle.
 En traçant les solutions proches d'un point non-singulier, on obtient la figure~\ref{fig:behaviour}. Systématiquement,
 pour des points non-singuliers, on obtient des solutions périodiques, et donc un cycle fermé, de forme déterminée par les paramètres.
 Pour des points singuliers, on a des ellipses si les valeurs ne sont pas nulles, selon la formule~\ref{eq:lotka-const},
-et des droites si l'une des valeurs est nulle, sinon un point.
+et des droites si l'une des valeurs est nulle, sinon un simple point.
 
 \begin{figure}[htbp!]
 	\centering
@@ -71,4 +71,4 @@ et des droites si l'une des valeurs est nulle, sinon un point.
 \end{figure}
 
 Dans le cas général, pour une équation différentielle quelconque, il n'y a pas nécessairement de cycle fermé dans une représentation
-telle que celle de la figure~\ref{fig:behaviour}.
+telle que la figure~\ref{fig:behaviour}.

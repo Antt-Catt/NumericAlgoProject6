@@ -5,11 +5,11 @@ Cela fait intervenir une fonction $f$ et une fonction $y$ ainsi que sa dérivée
 On a alors $y'(t)=f(y(t),t)$, et $y(t_0)=y_0$.
 
 \subsection{Méthodes de résolution}
-Nous avons implémenté les méthodes de résolution d’Euler, du point milieu, de Heun et de Runge-Kutta.
+Nous avons implémenté les méthodes de résolution d’Euler, du point-milieu, de Heun et de Runge-Kutta.
 Ces méthodes se basent sur des équations donnant $y_{n+1}$ en fonction de $y_n$, $h_n$ et $t_n$.
 
 Une fonction a donc été réalisée pour chacune de ces méthodes, et permet d'effectuer un unique pas de temps.
-Les fonctions détaillées dans la suite réutiliseront ces fontions, en effectuant un nombre d'itérations défini, selon la méthode choisie.
+Les fonctions détaillées dans la suite réutiliseront ces fonctions, en effectuant un nombre d'itérations défini, selon la méthode choisie.
 
 Nous avons implémenté \texttt{meth\_n\_step} qui calcule un nombre $N$ d'étapes avec un pas constant $h$,
 puis \texttt{meth\_epsilon} qui calcule une solution approchée avec un paramètre d’erreur $\epsilon$.
@@ -29,9 +29,9 @@ Comme attendu, on observe une convergence de la solution vers la solution exacte
 lorsque le nombre de subdivisions augmente.
 
 Sur l'ensemble des méthodes de résolution étudiées, la plus précise est celle de Runge-Kutta, puisqu'elle est d'ordre $4$.
-En revanche, c'est aussi la plus coûteuse en temps, puisqu'elle nécessite quatres appels à la fonction $f$ pour un unique pas de temps.
+En revanche, c'est aussi la plus coûteuse en temps, puisqu'elle nécessite quatre appels à la fonction $f$ pour un unique pas de temps.
 La méthode d'Euler est la moins précise (ordre $1$), mais la plus rapide, puisqu'elle ne nécessite qu'un seul appel à la fonction $f$ par pas de temps.
-Les autres méthodes constituent un bon compromis entre précision et temps de calcul, puisque celle du point milieu et de Heun sont d'ordre $2$, et nécessitent deux appels à la fonction $f$.
+Les autres méthodes constituent un bon compromis entre précision et temps de calcul, puisque celle du point-milieu et de Heun sont d'ordre $2$, et nécessitent deux appels à la fonction $f$.
 
 \subsection{Champ des tangentes}
 Pour continuer, nous avons implémenté la fonction \texttt{tangent\_2D} permettant de tracer le champ des tangentes,
