@@ -11,20 +11,11 @@ résoudre leurs équations de mouvement par les méthodes numériques implément
 Dans le cas du pendule simple, il y a deux forces qui s'appliquent sur la masse $m$:
 le poids de la masse \overrightarrow{P} et la force de la tige \overrightarrow{T}.
 
-D'après le théorème du moment cinétique appliqué en $M$ par rapport à $O$, on a l'équation~\ref{eq:moment_cinetique}.
-
-\begin{equation}
-  \frac{d\overrightarrow{L_{O,M}}}{dt} = \overrightarrow{M_{O, M}(\overrightarrow{P})} + \overrightarrow{M_{O, M}(\overrightarrow{T})}
-  \label{eq:moment_cinetique}
-\end{equation}
+D'après le théorème du moment cinétique appliqué en $M$ par rapport à $O$, on a l'équation
+$\frac{d\overrightarrow{L_{O,M}}}{dt} = \overrightarrow{M_{O, M}(\overrightarrow{P})} + \overrightarrow{M_{O, M}(\overrightarrow{T})}$.
 
 Le moment de \overrightarrow{T} est nul, car \overrightarrow{OM} et \overrightarrow{T} sont colinéaires. En développant l'expression, on a alors 
-$m l^{2} \ddot \theta = - m l g \sin{\theta} $, ce qui nous donne finalement l'équation~\ref{eq:pendule_simple}.
-
-\begin{equation}
-	\ddot \theta + \frac{g}{l} \sin{\theta}= 0
-	\label{eq:pendule_simple}
-\end{equation}
+$m l^{2} \ddot \theta = - m l g \sin{\theta} $, ce qui nous donne finalement l'équation $\ddot \theta + \frac{g}{l} \sin{\theta}= 0$.
 
 On retrouve l'équation différentielle non linéaire du second ordre bien connue du pendule simple. 
 Pour la résoudre numériquement en fonction de l'angle initial $ \theta_0 $, et de la vitesse initiale $ \dot \theta_0 $,
@@ -51,32 +42,17 @@ On remarque bien que pour des valeurs de $ \theta_0 $ faibles représentant les 
 la fréquence semble bien égale à la valeur $ \frac{1}{2 \pi} \sqrt{\frac{g}{l}} $.
 
 \subsection{Le pendule double}
-Le pendule à deux maillons est constitué de deux masse $ m_1 $ et $ m_2 $ 
+Le pendule à deux maillons est constitué de deux masses $ m_1 $ et $ m_2 $ 
 reliées par deux tiges de longueur $ l_1 $ et $ l _2 $. On note $ \theta_1 $ et $ \theta_2 $ les angles
-que font les tiges avec la verticale. On a alors les deux équations~\ref{eq:pendule_2m_t1} et~\ref{eq:pendule_2m_t2}, qui décrivent le mouvement des deux masses.
-\begin{equation}
-	\ddot \theta_1 = \frac{m_ g \sin(\theta_2) \cos(\theta_1 - \theta_2) + m_2 l_1 \dot \theta_1^2 \sin(\theta_1 - \theta_2) \cos(\theta_1 - \theta_2) + m_2 l_2 \dot \theta_2^2 \sin(\theta_1 - \theta_2) - (m_1 + m_2) g \sin(\theta_1)}{(m_1 + m_2) l_1 - m_2 l_1 \cos^{2}(\theta_1 - \theta_2)}
-	\label{eq:pendule_2m_t1}
-\end{equation}
-
-\begin{equation}
-	\ddot \theta_2 = \frac{- m_2 l_2 \dot \theta_2^2 \sin(\theta_1 - \theta_2) \cos(\theta_1 - \theta_2) + (m_1 + m_2) (g \sin(\theta_1) \cos( \cos(\theta_1 - \theta_2)) - l_1 \dot \theta_1^2 \sin(\theta_1 - \theta_2) - g \sin(\theta_2))}{(m_1 + m_2) l_2 - m_2 l_2 \cos^2(\theta_1 - \theta_2)}
-	\label{eq:pendule_2m_t2}
-\end{equation}
-
-Ce sont deux équations différentielles non linéaires du second ordre. 
-On peut résoudre numériquement ce système d'équations différentielles couplées en utilisant la méthode de Runge-Kutta d'ordre 4.
+que font les tiges avec la verticale. Dans la littérature, on trouve les deux équations donnant $\ddot \theta_1$ et $\ddot \theta_2$ en fonction des autres paramètres.
 
 La mise sous forme du système d'équations différentielles comme précisé en première partie est plus complexe,
 puisqu'il faut passer par un vecteur de résolution de dimension $4$.
 En effet, le système possède $4$ conditions initiales, à savoir les angles initiaux, et les vitesses initiales.
 On a donc le vecteur $ U = (\theta_1, \theta_2, \dot \theta_1, \dot \theta_2) $, et on peut donc écrire sa dérivée en fonction de ses variables, et des équations~\ref{eq:pendule_2m_t1} et~\ref{eq:pendule_2m_t2},
 ce qui nous donne le vecteur $ U' = (\dot \theta_1, \dot \theta_2, \ddot \theta_1, \ddot \theta_2) $.
-
-
-\bigskip
-
-En dessinant les trajectoires des pendules pour deux conditions initiales différentes mais très proches comme par exemple 
+\medbreak
+En dessinant les trajectoires des pendules pour deux conditions initiales différentes, mais très proches, comme par exemple 
 $ \theta_1(0) = \frac{\pi}{2} $, $ \dot \theta_1(0) = \dot \theta_2(0) = 0 $, avec seulement une différence sur l'angle initial $ \theta_2(0) $ de 12 degré (soit $ \theta_2(0) = 0 $ et $ \theta_2(0) = \frac{\pi}{15} $),
 on obtient les figures~\ref{fig:traj_0} et~\ref{fig:traj_12} suivante:
 
