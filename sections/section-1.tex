@@ -1,8 +1,7 @@
-\section{Résolution d'équations différentielles ordinaires}
+\section{Résolution d'équations différentielles ordinaires}\label{sec:sec1}
 Les algorithmes de résolution présentés ici utilisent tous des méthodes avec un pas de discrétisation, de la forme
-$y_{n+1}=y_n+h_n \times \phi (y_n,t_n,h_n)$. En pratique, pour résoudre le problème, on cherche à mettre
-l'équation différentielle sous la forme d'un produit de Cauchy.
-Celui-ci fait intervenir une fonction $f$ et une fonction $y$ ainsi que sa dérivée temporelle, ainsi qu'un vecteur de conditions initiales $y_0$.
+$y_{n+1}=y_n+h_n \times \phi (y_n,t_n,h_n)$. En pratique, on cherche à mettre l'équation différentielle sous la forme d'un produit de Cauchy.
+Cela fait intervenir une fonction $f$ et une fonction $y$ ainsi que sa dérivée, ainsi qu'un vecteur de conditions initiales $y_0$.
 On a alors $y'(t)=f(y(t),t)$, et $y(t_0)=y_0$.
 
 \subsection{Méthodes de résolution}
@@ -14,11 +13,10 @@ Les fonctions détaillées dans la suite réutiliseront ces fontions, en effectu
 
 Nous avons implémenté \texttt{meth\_n\_step} qui calcule un nombre $N$ d'étapes avec un pas constant $h$,
 puis \texttt{meth\_epsilon} qui calcule une solution approchée avec un paramètre d’erreur $\epsilon$.
+Une fois adaptée, cette dernière fonction permet de visualiser la convergence de la solution en fonction du nombre de subdivisions,
+comme le montre la figure~\ref{fig:subdivision}.
 En pratique, à chaque itération, si l'erreur entre deux itérations successives est inférieure à $\epsilon$,
 alors on arrête le calcul et on renvoie la solution.
-
-La convergence a été étudiée, avec \texttt{meth\_epsilon}, en fonction du nombre de subdivisions $N$,
-comme le montre la figure~\ref{fig:subdivision}.
 
 \begin{figure}[htbp!]
 	\centering
@@ -49,3 +47,5 @@ Les résultats obtenus semblent cohérents par rapport aux résultats réels.
 	\caption{Solution de l'équation différentielle, et son champ des tangentes}
 	\label{fig:tangente}
 \end{figure}
+
+\vspace*{-0.7cm}

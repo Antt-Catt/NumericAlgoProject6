@@ -1,12 +1,12 @@
-\section{Système proie-prédateur de Lotka-Volterra}
+\section{Système proie-prédateur de Lotka-Volterra}\label{sec:sec2}
 Dans cette partie, nous allons étudier le système proie-prédateur de Lotka-Volterra,
 qui est un système d'équations différentielles ordinaires,
 et le comparer à des modèles plus simples.
 
 
 \subsection{Modèles simplistes}
-Un des premiers modèle de population est le modèle de Malthus, qui suppose que la population croît de manière exponentielle.
-Celui-ci utilise l'équation $\frac{dN(t)}{dt} = \gamma N(t)$, avec $N(t)$ la population à l'instant $t$, et $\gamma \in \mathbb{R}$.
+Un des premiers modèle de population est celui de Malthus, qui suppose une croissance exponentielle de la population $N(t)$.
+Celui-ci utilise l'équation $\frac{dN(t)}{dt} = \gamma N(t)$, avec $\gamma \in \mathbb{R}$.
 
 Un coefficient $\gamma$ positif implique une croissance de la population, et un coefficient négatif une décroissance.
 Un autre modèle a été proposé, celui de Verhulst, utilisant une formule similaire à celle de Malthus,
@@ -58,10 +58,10 @@ de l'équation différentielle.
 	\left(\left(P(t) = 0\right) \vee \left(N(t) = \frac{d}{c}\right)\right), \forall t \in \mathbb{R}
 \end{equation}
 
-En traçant les solutions proches d'un point non-singulier, on obtient la figure~\ref{fig:behaviour}. De manière systématique,
+En traçant les solutions proches d'un point non-singulier, on obtient la figure~\ref{fig:behaviour}. Systématiquement,
 pour des points non-singuliers, on obtient des solutions périodiques, et donc un cycle fermé, de forme déterminée par les paramètres.
-Pour des points singuliers, on obtient des ellipses si les valeurs ne sont pas nulles, selon la formule~\ref{eq:lotka-const},
-et des droites si l'une des valeurs est nulle, et un point si les deux sont nulles.
+Pour des points singuliers, on a des ellipses si les valeurs ne sont pas nulles, selon la formule~\ref{eq:lotka-const},
+et des droites si l'une des valeurs est nulle, sinon un point.
 
 \begin{figure}[htbp!]
 	\centering
