@@ -66,7 +66,7 @@ def frequencies_theta_variable_graph():
 	"""
 	Function to plot the frequencies of the pendulum with theta_0 varying
 	"""
-	n = 200
+	n = 300
 	x = np.array([(-np.pi / 2) + np.pi * i / n for i in range(n)])
 	x = np.delete(x, np.where(x == 0))
 	y = np.array([frequencies(x[i]) for i in range(n - 1)])
