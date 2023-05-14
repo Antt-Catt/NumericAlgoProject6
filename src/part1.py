@@ -187,7 +187,7 @@ def tangent_2D(f, t0, tf, y0, yf, N):
 
 
 if __name__ == '__main__':
-	f = lambda y, t: np.array([y / (1 + t**2)])
+	f = lambda y, t: np.array([y / (1 + t * t)])
 	res = lambda t: np.exp(np.arctan(t))
 	y0 = np.array([1])
 	t0 = 0

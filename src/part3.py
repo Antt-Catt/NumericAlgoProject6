@@ -9,6 +9,7 @@ g, l, m1, m2, l1, l2 = 9.8, 1, 1, 1, 1, 1
 
 total_length = l1 + l2
 
+
 def is_max(res, i):
 	"""
 	Function to check if the value at index i is a maximum
@@ -42,7 +43,7 @@ def frequencies(theta_0):
 	Returns
 	-------
 	f : float
-		Frequency of the pendulum.
+		Frequency of the oscillations.
 	"""
 	y0 = np.array([theta_0, 0])
 	t0 = 0
@@ -66,13 +67,16 @@ def frequencies_theta_variable_graph():
 	Function to plot the frequencies of the pendulum with theta_0 varying
 	"""
 	n = 200
-	x = np.array([(-np.pi/2)+np.pi*i/n for i in range(n)])
+	x = np.array([(-np.pi / 2) + np.pi * i / n for i in range(n)])
 	x = np.delete(x, np.where(x == 0))
 	y = np.array([frequencies(x[i]) for i in range(n - 1)])
-	y_const = np.array([(1/(2*np.pi))*math.sqrt(g/l) for _ in range(n - 1)])
+	y_const = np.array([
+	    (1 / (2 * np.pi)) * math.sqrt(g / l) for _ in range(n - 1)
+	])
 	plt.plot(x, y)
 	plt.plot(x, y_const)
 	plt.show()
+
 
 def w(Y, t):
 	theta1, dtheta1, theta2, dtheta2 = Y
@@ -181,7 +185,7 @@ def animate_double_pendulum(theta1, theta2, t):
 		line2.set_data([X1[i], X2[i]], [Y1[i], Y2[i]])
 		return line1, line2, m1, m2
 
-	FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
+	anim = FuncAnimation(fig, animate, frames=len(t), interval=1, blit=True)
 	plt.title("Animation du double pendule")
 	plt.plot(X1[0], Y1[0], color="blue", marker="x")
 	plt.plot(X2[0], Y2[0], color="red", marker="x")
@@ -210,12 +214,11 @@ def find_first_loop(theta1, theta2, t):
 	for i, ti in enumerate(t):
 		if abs(theta2[i]) > pi:
 			return ti
-			
 
 
 if __name__ == '__main__':
 	frequencies_theta_variable_graph()
-	
+
 	angles = np.array([pi / 2, 0])
 	angular_speed = np.array([4, 0])
 	theta1, theta2, t = double_pendulum(angles, angular_speed, 0, 10)
