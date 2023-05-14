@@ -73,8 +73,12 @@ def frequencies_theta_variable_graph():
 	y_const = np.array([
 	    (1 / (2 * np.pi)) * math.sqrt(g / l) for _ in range(n - 1)
 	])
-	plt.plot(x, y)
-	plt.plot(x, y_const)
+	plt.title("Fréquence du pendule simple")
+	plt.plot(x, y, color="blue", label="Fréquence")
+	plt.plot(x, y_const, color="red")
+	plt.xlabel("θ")
+	plt.ylabel("f")
+	plt.legend()
 	plt.show()
 
 
