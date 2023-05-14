@@ -22,16 +22,25 @@ def step_euler(y, t, h, f):
 
 
 def step_middle_point(y, t, h, f):
+	"""
+	Same function as step_euler but with middle point method.
+	"""
 	return y + h * f(y + h * f(y, t) / 2, t + h / 2)
 
 
 def step_heun(y, t, h, f):
+	"""
+	Same function as step_euler but with Heun method.
+	"""
 	k1 = f(y, t)
 	k2 = f(y + h * k1, t + h)
 	return y + h * (k1 + k2) / 2
 
 
 def step_rk4(y, t, h, f):
+	"""
+	Same function as step_euler but with Runge-Kutta 4 method.
+	"""
 	k1 = f(y, t)
 	k2 = f(y + h * k1 / 2, t + h / 2)
 	k3 = f(y + h * k2 / 2, t + h / 2)
